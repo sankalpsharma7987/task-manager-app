@@ -86,7 +86,7 @@ resp.status(500).send()
             
         try{
             await user.save();//This line of code will always call the pre middleware logic to save the password in hash values
-            sendWelcomeEmail(user.email,user.name)
+            await sendWelcomeEmail(user.email,user.name)
             const token=await user.generateAuthToken()
             resp.status(201).send({user,token});
         }catch(error)
@@ -112,7 +112,7 @@ resp.status(500).send()
                 // }
                 
                 await req.user.remove(); //Remove is a mongoose function to remove object from the database. The object to be deleted will call the remove function
-                sendCancelationEmail(req.user.email,req.user.name)
+                await sendCancelationEmail(req.user.email,req.user.name)
             resp.send(req.user);
             
             }catch(error)
